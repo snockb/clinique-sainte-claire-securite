@@ -4,7 +4,7 @@
 
 Ce dépôt contient l'ensemble des scripts, configurations et documents
 techniques produits dans le cadre du projet de sécurisation du système
-d'information de la Clinique Sainte-Claire (Lyon).
+d'information de la Clinique Sainte-Claire (Nantes).
 
 L'objectif du projet est de renforcer la sécurité de l'infrastructure
 sur quatre axes : architecture réseau, gestion des accès, surveillance,
