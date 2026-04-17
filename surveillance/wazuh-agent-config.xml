@@ -1,0 +1,35 @@
+<ossec_config>
+  <client>
+    <server>
+      <address>192.168.40.10</address>
+      <port>1514</port>
+      <protocol>tcp</protocol>
+    </server>
+  </client>
+
+  <syscheck>
+    <frequency>3600</frequency>
+    <directories check_all="yes" realtime="yes">
+      C:\Program Files\Mediboard
+    </directories>
+    <directories check_all="yes">
+      C:\Windows\System32
+    </directories>
+    <ignore>C:\Program Files\Mediboard\logs\temp</ignore>
+  </syscheck>
+
+  <localfile>
+    <log_format>eventchannel</log_format>
+    <location>Security</location>
+  </localfile>
+
+  <localfile>
+    <log_format>eventchannel</log_format>
+    <location>System</location>
+  </localfile>
+
+  <localfile>
+    <log_format>eventchannel</log_format>
+    <location>Application</location>
+  </localfile>
+</ossec_config>
