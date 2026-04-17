@@ -1,0 +1,55 @@
+Règles pfSense — Clinique Sainte-Claire
+Dernière mise à jour : semaine 4 du projet
+
+--- Règles de blocage inter-VLAN ---
+
+[RÈGLE 1] Bloquer VLAN visiteurs vers réseaux internes
+  Source      : 10.50.0.0/24 (VLAN 50 - Visiteurs)
+  Destination : 10.10.0.0/24, 10.20.0.0/24, 10.30.0.0/24, 10.40.0.0/24
+  Action      : Bloquer
+  Protocole   : Tous
+
+[RÈGLE 2] Autoriser VLAN médecins vers Mediboard uniquement
+  Source      : 10.10.0.0/24 (VLAN 10 - Médecins)
+  Destination : 10.30.0.5 (serveur Mediboard), port 443
+  Action      : Autoriser
+  Protocole   : TCP
+
+[RÈGLE 3] Bloquer VLAN médecins vers base de données directement
+  Source      : 10.10.0.0/24
+  Destination : 10.30.0.6 (PostgreSQL), port 5432
+  Action      : Bloquer
+  Protocole   : TCP
+
+[RÈGLE 4] Autoriser VLAN IT vers tous les VLANs
+  Source      : 10.40.0.0/24 (VLAN 40 - IT)
+  Destination : Any
+  Action      : Autoriser
+  Protocole   : Tous
+
+[RÈGLE 5] Bloquer tout trafic inter-VLAN non autorisé
+  Source      : Any
+  Destination : Any
+  Action      : Bloquer
+  Protocole   : Tous
+  Note        : Règle de fin — deny all par défaut
+
+--- Règles accès externe ---
+
+[RÈGLE 6] Autoriser HTTPS vers Mediboard
+  Source      : Any (Internet)
+  Destination : IP publique clinique, port 443
+  Action      : Autoriser vers reverse proxy Nginx
+  Protocole   : TCP
+
+[RÈGLE 7] Autoriser accès VPN OpenVPN
+  Source      : Any (Internet)
+  Destination : IP publique clinique, port 1194
+  Action      : Autoriser
+  Protocole   : UDP
+
+[RÈGLE 8] Bloquer tout autre trafic entrant
+  Source      : Any (Internet)
+  Destination : IP publique clinique
+  Action      : Bloquer
+  Protocole   : Tous
